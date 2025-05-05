@@ -32,3 +32,18 @@ ORDER BY total_salary DESC;
 
 -- Davide Price earned the most salary in the majors, earning $245,553,888 during his tenure
 
+SELECT 
+	CASE 
+		WHEN pos = 'OF' THEN 'Outfield'
+		WHEN pos IN ('SS', '1B', '2B', '3B') THEN 'Infield'
+		WHEN pos IN ('P', 'C') THEN 'Battery'
+	END AS position_group,
+	SUM(po) AS total_putouts
+FROM fielding
+INNER JOIN people USING (playerid)
+WHERE yearid = 2016
+GROUP BY position_group;
+
+-- For the year 2016, Battery has 41424 putouts, Infield had 58934 putouts, and Outfield had 29560 putouts
+
+
