@@ -46,4 +46,12 @@ GROUP BY position_group;
 
 -- For the year 2016, Battery has 41424 putouts, Infield had 58934 putouts, and Outfield had 29560 putouts
 
+SELECT 
+	ROUND(AVG(so), 2) AS avg_strikeouts,
+	ROUND(AVG(hr), 2) AS avg_homeruns,
+	FLOOR(yearid::int/10) * 10 AS decade
+FROM batting
+WHERE yearid >= '1920'
+GROUP BY decade;
 
+-- Run code for answer to question 5 
