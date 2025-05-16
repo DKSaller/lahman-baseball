@@ -55,3 +55,17 @@ WHERE yearid >= '1920'
 GROUP BY decade;
 
 -- Run code for answer to question 5 
+
+SELECT 
+	namefirst AS first_name,
+	namelast AS last_name,
+	sb,
+	cs,
+	ROUND((sb * 1.0/(sb+cs)) * 100, 2) AS sb_percent
+FROM batting
+INNER JOIN people USING (playerid)
+WHERE sb >= 20 AND yearid = '2016'
+ORDER BY sb_percent DESC
+LIMIT 1;
+
+-- Chris Ownings had the greatest sb percentage at 91.30%
