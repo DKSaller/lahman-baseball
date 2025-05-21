@@ -69,3 +69,28 @@ ORDER BY sb_percent DESC
 LIMIT 1;
 
 -- Chris Ownings had the greatest sb percentage at 91.30%
+
+SELECT 
+	name,
+	yearid,
+	w
+FROM teams
+WHERE yearid BETWEEN '1970' AND '2016'
+	AND wswin = 'N'
+ORDER BY w DESC
+LIMIT 1;
+
+-- the 2001 Seattle Mariners won the most games without winning the World Series at 116 wins
+
+SELECT 
+	name,
+	yearid,
+	w
+FROM teams
+WHERE yearid BETWEEN '1970' AND '2016'
+	AND wswin = 'Y'
+	AND yearid != '1981'
+ORDER BY w
+LIMIT 1;
+
+-- the 2006 St. Louis Cardinals won the World Series with the least amount of wins at 83, taking into account the year the season was split and removing it.
