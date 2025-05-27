@@ -94,3 +94,29 @@ ORDER BY w
 LIMIT 1;
 
 -- the 2006 St. Louis Cardinals won the World Series with the least amount of wins at 83, taking into account the year the season was split and removing it.
+
+SELECT teams.name,
+	park_name,
+	SUM(homegames.attendance)/SUM(homegames.games) AS avg_attendance
+FROM homegames
+INNER JOIN parks USING (park)
+INNER JOIN teams ON homegames.year = teams.yearid AND homegames.team = teams.teamid
+WHERE year = '2016' AND games >= 10
+GROUP BY teams.name, park_name
+ORDER BY avg_attendance DESC
+LIMIT 5;
+
+-- Top 5 teams and parks by average attendance
+
+SELECT teams.name,
+	park_name,
+	SUM(homegames.attendance)/SUM(homegames.games) AS avg_attendance
+FROM homegames
+INNER JOIN parks USING (park)
+INNER JOIN teams ON homegames.year = teams.yearid AND homegames.team = teams.teamid
+WHERE year = '2016' AND games >= 10
+GROUP BY teams.name, park_name
+ORDER BY avg_attendance
+LIMIT 5;
+
+-- Bottom 5 teams and parks by average attendance
