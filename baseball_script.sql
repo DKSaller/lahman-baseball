@@ -192,7 +192,7 @@ WHERE b.yearid = '2016'
 	AND b.hr >= 1
 	AND yp.years_played >= 10
 GROUP BY namefirst, namelast, cbh.max_hr, b.hr
-ORDER BY b.hr DESC, namelast
+ORDER BY b.hr DESC, namelast;
 
 -- Answer) Edwin Encarnacion: 42
 --		   Robinson Cano: 39
@@ -203,3 +203,36 @@ ORDER BY b.hr DESC, namelast
 --         Adam Wainwright: 2
 --         Bartolo Colon: 1
 --         Francisco Liriano: 1
+
+
+-- 11. Is there any correlation between number of wins and team salary? Use data from 2000 and later to answer this question. As you do this analysis, keep in mind that salaries across the whole league tend to increase together, so you may want to look on a year-by-year basis.
+
+SELECT 
+	teamid,
+	yearid,
+	w,
+	SUM(salary) AS total_salary,
+	LAG(SUM(salary)) OVER (PARTITION BY teamid ORDER BY yearid) AS prev_year_salary,
+	SUM(salary) - LAG(SUM(salary)) OVER (PARTITION BY teamid ORDER BY yearid) AS salary_diff
+FROM salaries AS s
+INNER JOIN teams AS t USING (teamid, yearid)
+WHERE yearid >= '2000'
+GROUP BY teamid, w, yearid
+ORDER BY teamid, yearid
+
+-- There's no correlation between the amount of wins a team has in a prior season and the amount of salary they're paying out to their players.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
